@@ -162,6 +162,8 @@ style say_dialogue:
 
     adjust_spacing False
 
+    size 50
+
 ## Input screen ################################################################
 ##
 ## This screen is used to display renpy.input. The prompt parameter is used to
@@ -306,13 +308,29 @@ screen navigation():
 
         else:
 
-            textbutton _("History") action ShowMenu("history")
+            # textbutton _("History") action ShowMenu("history")
+            imagebutton:
+                xalign 0.5
+                auto "cus_butt/history_%s.png"
+                action ShowMenu("history")
 
-            textbutton _("Save") action ShowMenu("save")
+            # textbutton _("Save") action ShowMenu("save")
+            # imagebutton:
+            #     xalign 0.5
+            #     auto "cus_butt/save_%s.png"
+            #     action ShowMenu("save")
 
-        textbutton _("Load") action ShowMenu("load")
+        # textbutton _("Load") action ShowMenu("load")
+        # imagebutton:
+        #         xalign 0.5
+        #         auto "cus_butt/load_%s.png"
+        #         action ShowMenu("load")
 
-        textbutton _("Options") action ShowMenu("preferences")
+        # textbutton _("Options") action ShowMenu("preferences")
+        imagebutton:
+                xalign 0.5
+                auto "cus_butt/options_%s.png"
+                action ShowMenu("preferences")
 
         if _in_replay:
 
@@ -320,15 +338,27 @@ screen navigation():
 
         elif not main_menu:
 
-            textbutton _("Main Menu") action MainMenu()
+            # textbutton _("Main Menu") action MainMenu()
+            imagebutton:
+                xalign 0.5
+                auto "cus_butt/mm_%s.png"
+                action MainMenu()
 
-        textbutton _("About") action ShowMenu("about")
+        # textbutton _("About") action ShowMenu("about")
+        imagebutton:
+                xalign 0.5
+                auto "cus_butt/about_%s.png"
+                action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             # Custom ending screen
 
-            textbutton _("Endings") action ShowMenu("endings")
+            # textbutton _("Endings") action ShowMenu("endings")
+            imagebutton:
+                xalign 0.5
+                auto "cus_butt/endings_%s.png"
+                action ShowMenu("endings")
 
             ## Help isn't necessary or relevant to mobile devices.
             # textbutton _("Help") action ShowMenu("help")
@@ -338,12 +368,12 @@ screen navigation():
 
             ## The quit button is banned on iOS and unnecessary on Android and
             ## Web.
-            textbutton _("Quit") action Quit(confirm=not main_menu)
+            # textbutton _("Quit") action Quit(confirm=not main_menu)
+            imagebutton:
+                xalign 0.5
+                auto "cus_butt/quit_%s.png"
+                action Quit(confirm=not main_menu)
 
-# So tired... Brain fried...
-# Gonna do something with 'screens' and 'use'...
-# Also, find a way to have the back of the button an image but text dynamic.
-# To have an image for each is time and memory consuming...
 
 style navigation_button is gui_button
 style navigation_button_text is gui_button_text
@@ -428,6 +458,8 @@ style main_menu_version:
 ## This screen is intended to be used with one or more children, which are
 ## transcluded (placed) inside it.
 
+default _game_menu_screen = "history"
+
 screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     style_prefix "game_menu"
@@ -488,9 +520,17 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     use navigation
 
-    textbutton _("Return"):
-        style "return_button"
+    # textbutton _("Return"):
+    #     style "return_button"
 
+    #     action Return()
+    imagebutton:
+        style "return_button"
+        if main_menu:
+            xpos 80
+        else:
+            xpos 120
+        auto "cus_butt/return_%s.png"
         action Return()
 
     label title
@@ -571,12 +611,15 @@ screen about():
 
         vbox:
 
-            label "[config.name!t]"
-            text _("Version [config.version!t]\n")
+            # label "[config.name!t]"
+            label "Fiera and Claude"
+            # text _("Version [config.version!t]\n")
 
             ## gui.about is usually set in options.rpy.
             if gui.about:
                 text "[gui.about!t]\n"
+
+            text _("Fiera and Claude is a short story about a young girl (Fiera) and her butler (Claude). You play as Claude and decide how to help her when she accidentally hurts herself.\n")
 
             text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
 
@@ -586,8 +629,11 @@ style about_label_text is gui_label_text
 style about_text is gui_text
 
 style about_label_text:
-    size gui.label_text_size
+    # size gui.label_text_size
+    size 100
 
+style about_text:
+    size 50
 
 ## Load and Save screens #######################################################
 ##
@@ -974,6 +1020,7 @@ style history_text:
     min_width gui.history_text_width
     textalign gui.history_text_xalign
     layout ("subtitle" if gui.history_text_xalign else "tex")
+    size 50
 
 style history_label:
     xfill True
@@ -1130,7 +1177,7 @@ screen endings():
 
         # vbox:
         grid 2 3:
-            xspacing -100
+            xspacing -50
             yspacing 100
 
             # hbox:
@@ -1177,22 +1224,26 @@ style help_text is gui_text
 style help_button:
     properties gui.button_properties("help_button")
     xmargin 12
+    size 50
 
 style help_button_text:
     properties gui.text_properties("help_button")
+    size 50
 
 style help_label:
-    xsize 750
-    right_padding 30
+    xsize 650
+    right_padding 1
 
 style help_label_text:
     # size gui.text_size
-    size 80
+    size 50
     xalign 0.5
     textalign 1.0
 
 style help_text:
     xalign 0.5
+    size 50
+    # font "fonts/CaviarDreams_Bold.ttf"
 
 
 
