@@ -52,13 +52,15 @@ style vbar:
 
 style scrollbar:
     ysize gui.scrollbar_size
+    # base_bar Frame("gui/scrollbar/horizontal_[prefix_]bar.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
+    # thumb Frame("gui/scrollbar/horizontal_[prefix_]thumb.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
     base_bar Frame("gui/scrollbar/horizontal_[prefix_]bar.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
     thumb Frame("gui/scrollbar/horizontal_[prefix_]thumb.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
 
 style vscrollbar:
     xsize gui.scrollbar_size
-    base_bar Frame("gui/scrollbar/vertical_[prefix_]bar.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
-    thumb Frame("gui/scrollbar/vertical_[prefix_]thumb.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
+    base_bar Frame("cus_bars/v_[prefix_]bar.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
+    thumb Frame("cus_bars/v_[prefix_]thumb.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
 
 style slider:
     ysize gui.slider_size
@@ -162,8 +164,6 @@ style say_dialogue:
 
     adjust_spacing False
 
-    size 50
-
 ## Input screen ################################################################
 ##
 ## This screen is used to display renpy.input. The prompt parameter is used to
@@ -255,10 +255,10 @@ screen quick_menu():
             textbutton _("History") action ShowMenu('history')
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Save") action ShowMenu('save')
-            textbutton _("Q.Save") action QuickSave()
-            textbutton _("Q.Load") action QuickLoad()
-            textbutton _("Prefs") action ShowMenu('preferences')
+            # textbutton _("Save") action ShowMenu('save')
+            # textbutton _("Q.Save") action QuickSave()
+            # textbutton _("Q.Load") action QuickLoad()
+            textbutton _("Options") action ShowMenu('preferences')
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -276,6 +276,7 @@ style quick_button:
 
 style quick_button_text:
     properties gui.text_properties("quick_button")
+    size 30
 
 
 ################################################################################
@@ -619,7 +620,14 @@ screen about():
             if gui.about:
                 text "[gui.about!t]\n"
 
-            text _("Fiera and Claude is a short story about a young girl (Fiera) and her butler (Claude). You play as Claude and decide how to help her when she accidentally hurts herself.\n")
+            $ f_color = "#ff2bc0"
+            $ c_color = "#387ed9"
+
+            text _("{color=[f_color]}Fiera{/color} and {color=[c_color]}Claude{/color} is a short story about a young girl ({color=[f_color]}Fiera{/color}) and her butler ({color=[c_color]}Claude{/color}). You play as {color=[c_color]}Claude{/color} and decide how to help {color=[f_color]}Fiera{/color} when she accidentally hurts herself trying to do something nice for you.\n")
+
+            text _("Characters were made using the {a=https://tainara-p.itch.io/female-character-sprite-creator/}Female Character Sprite Creator{/a} pack by {a=https://tainara-p.itch.io/}Tainara-P{/a} on {a=https://itch.io/}itch.io{/a}.\n")
+
+            text _("Backgrounds are from the {a=https://lornn.itch.io/backgrounds-magic-school/}Backgrounds Magic School{/a} pack and {a=https://lornn.itch.io/backgrounds-restaurants-and-cafes/}Backgrounds Restaurants and Cafes{/a} pack by {a=https://lornn.itch.io/}Lornn{/a} on {a=https://itch.io/}itch.io{/a}.\n")
 
             text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
 
@@ -786,6 +794,12 @@ style slot_button_text:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#preferences
 
+style the_bars:
+    left_bar "cus_bars/h_[prefix_]bar_full.png"
+    right_bar "cus_bars/h_[prefix_]bar_empty.png"
+    thumb "cus_bars/h_bar_thumb.png"
+    xysize (500, 100)
+
 screen preferences():
 
     tag menu
@@ -819,17 +833,28 @@ screen preferences():
 
             hbox:
                 style_prefix "slider"
+                
                 box_wrap True
 
                 vbox:
 
                     label _("Text Speed")
 
-                    bar value Preference("text speed")
+                    bar:
+                        style "the_bars"
+                        value Preference("text speed")
+                    # bar:
+                    #     value Preference("text speed")
+                    #     left_bar "cus_bars/bar_full.png"
+                    #     right_bar "cus_bars/bar_empty.png"
+                    #     thumb "cus_bars/bar_thumb.png"
 
                     label _("Auto-Forward Time")
 
-                    bar value Preference("auto-forward time")
+                    # bar value Preference("auto-forward time")
+                    bar:
+                        style "the_bars"
+                        value Preference("auto-forward time")
 
                 vbox:
 
@@ -837,14 +862,20 @@ screen preferences():
                         label _("Music Volume")
 
                         hbox:
-                            bar value Preference("music volume")
+                            # bar value Preference("music volume")
+                            bar:
+                                style "the_bars"
+                                value Preference("music volume")
 
                     if config.has_sound:
 
                         label _("Sound Volume")
 
                         hbox:
-                            bar value Preference("sound volume")
+                            # bar value Preference("sound volume")
+                            bar:
+                                style "the_bars"
+                                value Preference("sound volume")
 
                             if config.sample_sound:
                                 textbutton _("Test") action Play("sound", config.sample_sound)
@@ -854,7 +885,10 @@ screen preferences():
                         label _("Voice Volume")
 
                         hbox:
-                            bar value Preference("voice volume")
+                            # bar value Preference("voice volume")
+                            bar:
+                                style "the_bars"
+                                value Preference("voice volume")
 
                             if config.sample_voice:
                                 textbutton _("Test") action Play("voice", config.sample_voice)
@@ -899,9 +933,11 @@ style pref_label:
 
 style pref_label_text:
     yalign 1.0
+    size 60
 
 style pref_vbox:
-    xsize 338
+    # xsize 338
+    xsize 500
 
 style radio_vbox:
     spacing gui.pref_button_spacing
@@ -912,6 +948,7 @@ style radio_button:
 
 style radio_button_text:
     properties gui.text_properties("radio_button")
+    size 50
 
 style check_vbox:
     spacing gui.pref_button_spacing
@@ -922,6 +959,7 @@ style check_button:
 
 style check_button_text:
     properties gui.text_properties("check_button")
+    size 50
 
 style slider_slider:
     xsize 525
@@ -936,6 +974,9 @@ style slider_button_text:
 
 style slider_vbox:
     xsize 675
+
+style slider_label_text:
+    size 45
 
 
 ## History screen ##############################################################
@@ -1243,7 +1284,6 @@ style help_label_text:
 style help_text:
     xalign 0.5
     size 50
-    # font "fonts/CaviarDreams_Bold.ttf"
 
 
 

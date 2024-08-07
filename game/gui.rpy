@@ -24,17 +24,18 @@ define config.check_conflicting_properties = True
 ## The colors of text in the interface.
 
 ## An accent color used throughout the interface to label and highlight text.
-define gui.accent_color = '#a206c9'
+define gui.accent_color = '#ff6fa9'
 
 ## The color used for a text button when it is neither selected nor hovered.
-define gui.idle_color = '#fcf700'
+# define gui.idle_color = '#7de1df'
+define gui.idle_color = '#337e7c'
 
 ## The small color is used for small text, which needs to be brighter/darker to
 ## achieve the same effect.
 define gui.idle_small_color = '#aaaaaa'
 
 ## The color that is used for buttons and bars that are hovered.
-define gui.hover_color = '#b651cf'
+define gui.hover_color = '#013141'
 
 ## The color used for a text button when it is selected but not focused. A
 ## button is selected if it is the current screen or preference value.
@@ -47,10 +48,14 @@ define gui.insensitive_color = '#8888887f'
 ## used directly, but are used when re-generating bar image files.
 define gui.muted_color = '#003d51'
 define gui.hover_muted_color = '#005b7a'
+# define gui.muted_color = '#ff6fa9'
+# define gui.hover_muted_color = '#7de1df'
 
 ## The colors used for dialogue and menu choice text.
-define gui.text_color = '#ffffff'
-define gui.interface_text_color = '#ffffff'
+# define gui.text_color = '#ffffff'
+define gui.text_color = '#005b7a'
+# define gui.interface_text_color = '#ffffff'
+define gui.interface_text_color = '#005b7a'
 
 
 ## Fonts and Font Sizes ########################################################
@@ -62,13 +67,13 @@ define gui.text_font = "DejaVuSans.ttf"
 define gui.name_text_font = "DejaVuSans.ttf"
 
 ## The font used for out-of-game text.
-define gui.interface_text_font = "CaviarDreams_Bold.ttf"
+define gui.interface_text_font = "DejaVuSans.ttf"
 
 ## The size of normal dialogue text.
-define gui.text_size = 33
+define gui.text_size = 40
 
 ## The size of character names.
-define gui.name_text_size = 45
+define gui.name_text_size = 65
 
 ## The size of text in the game's user interface.
 define gui.interface_text_size = 75
@@ -189,8 +194,10 @@ define gui.page_button_borders = Borders(15, 6, 15, 6)
 
 define gui.quick_button_borders = Borders(15, 6, 15, 0)
 define gui.quick_button_text_size = 21
-define gui.quick_button_text_idle_color = gui.idle_small_color
-define gui.quick_button_text_selected_color = gui.accent_color
+# define gui.quick_button_text_idle_color = gui.idle_small_color
+# define gui.quick_button_text_selected_color = gui.accent_color
+define gui.quick_button_text_idle_color = "#135655"
+define gui.quick_button_text_hover_color = "#93fffd"
 
 ## You can also add your own customizations, by adding properly-named variables.
 ## For example, you can uncomment the following line to set the width of a
@@ -210,8 +217,10 @@ define gui.choice_button_borders = Borders(150, 8, 150, 8)
 define gui.choice_button_text_font = gui.text_font
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = '#888888'
-define gui.choice_button_text_hover_color = "#ffffff"
+# define gui.choice_button_text_idle_color = '#888888'
+# define gui.choice_button_text_hover_color = "#ffffff"
+define gui.choice_button_text_idle_color = '#135655'
+define gui.choice_button_text_hover_color = "#eefbfa"
 define gui.choice_button_text_insensitive_color = '#8888887f'
 
 
@@ -259,7 +268,8 @@ define gui.notify_ypos = 68
 define gui.choice_spacing = 33
 
 ## Buttons in the navigation section of the main and game menus.
-define gui.navigation_spacing = 6
+# define gui.navigation_spacing = 6
+define gui.navigation_spacing = 15
 
 ## Controls the amount of spacing between preferences.
 define gui.pref_spacing = 15
