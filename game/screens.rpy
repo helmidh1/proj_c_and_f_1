@@ -465,10 +465,12 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     style_prefix "game_menu"
 
-    if main_menu:
-        add gui.main_menu_background
-    else:
-        add gui.game_menu_background
+    add gui.game_menu_background
+
+    # if main_menu:
+    #     add gui.main_menu_background
+    # else:
+    #     add gui.game_menu_background
 
     frame:
         style "game_menu_outer_frame"
@@ -1225,35 +1227,39 @@ screen endings():
             #     label _("Restart Endings")
             vbox:
                 label _("Home Ending")
-                text _("[persistent.home_ending]")
+                # text _("[persistent.home_ending]")
+                text _(("Not Achieved", "Achieved")[persistent.home_ending])
 
             vbox:
                 xalign 0.5
                 yalign 0.5
-                textbutton "Restart Home Ending":
-                    action SetVariable("persistent.home_ending", False)
-                # textbutton _("Restart Home Ending") action SetVariable(persistent.home_ending, False)
-                # textbutton _("Restart Endings") action Call(label="reset_endings")
+                if persistent.home_ending:
+                    textbutton "Restart Home Ending":
+                        action SetVariable("persistent.home_ending", False)
 
             vbox:
                 label _("Ice Cream Ending")
-                text _("[persistent.ice_cream_ending]")
+                # text _("[persistent.ice_cream_ending]")
+                text _(("Not Achieved", "Achieved")[persistent.ice_cream_ending])
 
             vbox:
                 xalign 0.5
                 yalign 0.5
-                textbutton "Restart Ice Cream Ending":
-                    action SetVariable("persistent.ice_cream_ending", False)
+                if persistent.ice_cream_ending:
+                    textbutton "Restart Ice Cream Ending":
+                        action SetVariable("persistent.ice_cream_ending", False)
 
             vbox:
                 label _("Meanie Ending")
-                text _("[persistent.meanie_ending]")
+                # text _("[persistent.meanie_ending]")
+                text _(("Not Achieved", "Achieved")[persistent.meanie_ending])
 
             vbox:
                 xalign 0.5
                 yalign 0.5
-                textbutton "Restart Meanie Ending":
-                    action SetVariable("persistent.meanie_ending", False)
+                if persistent.meanie_ending:
+                    textbutton "Restart Meanie Ending":
+                        action SetVariable("persistent.meanie_ending", False)
 
 
 style help_button is gui_button
