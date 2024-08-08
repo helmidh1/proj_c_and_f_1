@@ -394,12 +394,14 @@ style navigation_button_text:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#main-menu
 
+
 screen main_menu():
 
     ## This ensures that any other menu screen is replaced.
     tag menu
 
     add gui.main_menu_background
+    add "f_and_c_title.png" xalign 0.5 yalign 0.1 at hover
 
     ## This empty frame darkens the main menu.
     frame:

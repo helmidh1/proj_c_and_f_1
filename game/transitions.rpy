@@ -18,3 +18,8 @@ transform flash:
     # linear 0.5 matrixcolor ContrastMatrix(1.0)
     linear 0.5 matrixcolor ContrastMatrix(5.0)
     linear 0.5 matrixcolor ContrastMatrix(1.0)
+
+transform hover:
+    easein 2.0 yoffset -15
+    easein 2.0 yoffset 0
+    repeat
