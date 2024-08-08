@@ -127,7 +127,7 @@ label praised:
     label warn_her:
         c "This may sting a little."
         "You apply the disinfectant carefully."
-        "Fiera winces from the stinging."
+        "Fiera winces from the sting."
         c "Is everything alright?"
         f "Yes. Thank you for warning me. I probably would have screamed if you didn't tell me."
         jump praised_cont
