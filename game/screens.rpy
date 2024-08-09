@@ -304,7 +304,8 @@ screen navigation():
             # textbutton _("Start") action Start()
             imagebutton:
                 xalign 0.5
-                auto "cus_butt/start_%s.png"
+                auto "cus_butt/start_%s.png"                
+                hover_sound 'audio/sound_effects/click.mp3'
                 action Start()
 
         else:
@@ -313,6 +314,7 @@ screen navigation():
             imagebutton:
                 xalign 0.5
                 auto "cus_butt/history_%s.png"
+                hover_sound 'audio/sound_effects/click.mp3'
                 action ShowMenu("history")
 
             # textbutton _("Save") action ShowMenu("save")
@@ -329,9 +331,10 @@ screen navigation():
 
         # textbutton _("Options") action ShowMenu("preferences")
         imagebutton:
-                xalign 0.5
-                auto "cus_butt/options_%s.png"
-                action ShowMenu("preferences")
+            xalign 0.5
+            auto "cus_butt/options_%s.png"
+            hover_sound 'audio/sound_effects/click.mp3'
+            action ShowMenu("preferences")
 
         if _in_replay:
 
@@ -343,13 +346,21 @@ screen navigation():
             imagebutton:
                 xalign 0.5
                 auto "cus_butt/mm_%s.png"
+                hover_sound 'audio/sound_effects/click.mp3'
                 action MainMenu()
 
         # textbutton _("About") action ShowMenu("about")
         imagebutton:
                 xalign 0.5
                 auto "cus_butt/about_%s.png"
+                hover_sound 'audio/sound_effects/click.mp3'
                 action ShowMenu("about")
+
+        imagebutton:
+            xalign 0.5
+            auto "cus_butt/credits_%s.png"
+            hover_sound 'audio/sound_effects/click.mp3'
+            action ShowMenu("credits")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
@@ -359,6 +370,7 @@ screen navigation():
             imagebutton:
                 xalign 0.5
                 auto "cus_butt/endings_%s.png"
+                hover_sound 'audio/sound_effects/click.mp3'
                 action ShowMenu("endings")
 
             ## Help isn't necessary or relevant to mobile devices.
@@ -373,6 +385,7 @@ screen navigation():
             imagebutton:
                 xalign 0.5
                 auto "cus_butt/quit_%s.png"
+                hover_sound 'audio/sound_effects/click.mp3'
                 action Quit(confirm=not main_menu)
 
 
@@ -536,6 +549,7 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
         else:
             xpos 120
         auto "cus_butt/return_%s.png"
+        hover_sound 'audio/sound_effects/click.mp3'
         action Return()
 
     label title
@@ -629,12 +643,6 @@ screen about():
 
             text _("{color=[f_color]}Fiera{/color} and {color=[c_color]}Claude{/color} is a short story about a young girl ({color=[f_color]}Fiera{/color}) and her butler ({color=[c_color]}Claude{/color}). You play as {color=[c_color]}Claude{/color} and decide how to help {color=[f_color]}Fiera{/color} when she accidentally hurts herself trying to do something nice for you.\n")
 
-            text _("Characters were made using the {a=https://tainara-p.itch.io/female-character-sprite-creator/}Female Character Sprite Creator{/a} pack by {a=https://tainara-p.itch.io/}Tainara-P{/a} on {a=https://itch.io/}itch.io{/a}.\n")
-
-            text _("Backgrounds are from the {a=https://lornn.itch.io/backgrounds-magic-school/}Backgrounds Magic School{/a} pack and {a=https://lornn.itch.io/backgrounds-restaurants-and-cafes/}Backgrounds Restaurants and Cafes{/a} pack by {a=https://lornn.itch.io/}Lornn{/a} on {a=https://itch.io/}itch.io{/a}.\n")
-
-            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
-
 
 style about_label is gui_label
 style about_label_text is gui_label_text
@@ -646,6 +654,42 @@ style about_label_text:
 
 style about_text:
     size 50
+
+
+## Credits screen #######################################################
+##
+## Custom credits screen.
+
+screen credits():
+    tag menu
+    use game_menu(_("About"), scroll="viewport"):
+        style_prefix "credits"
+
+        vbox:
+            label "Sprites"
+            text _("Characters were made using the {a=https://tainara-p.itch.io/female-character-sprite-creator/}Female Character Sprite Creator{/a} pack by {a=https://tainara-p.itch.io/}Tainara-P{/a} on {a=https://itch.io/}itch.io{/a}.\n")
+
+            label "Backgrounds"
+            text _("Backgrounds are from the {a=https://lornn.itch.io/backgrounds-magic-school/}Backgrounds Magic School{/a} pack and {a=https://lornn.itch.io/backgrounds-restaurants-and-cafes/}Backgrounds Restaurants and Cafes{/a} pack by {a=https://lornn.itch.io/}Lornn{/a} on {a=https://itch.io/}itch.io{/a}.\n")
+
+            label "Audio"
+            text _("Music by {a=https://pixabay.com/users/good_b_music-22836301/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8782}Zakhar Valaha{/a} and {a=https://pixabay.com/users/harumachimusic-13470593/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=182046}Noru{/a} from {a=https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=182046}Pixabay{/a}.\n")
+
+            text _("Sounds by {a=https://freesound.org/people/Jaszunio15/}Jaszunio15{/a} on {a=https://freesound.org/}freesound.org{/a}.\n")
+            
+            text _("\n\nMade with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
+
+
+style credits_label is gui_label
+style credits_label_text is gui_label_text
+style credits_text is gui_text
+
+style credits_label_text:
+    size 80
+
+style credits_text:
+    size 50
+
 
 ## Load and Save screens #######################################################
 ##
